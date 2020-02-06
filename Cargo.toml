@@ -33,6 +33,12 @@ log = { version = "0.4.8", default-features = false }
 ucs2 = "0.3.1"
 uefi-macros = "0.3.0"
 
+[dependencies.serde]
+default-features = false
+optional = true
+version = "1.0"
+features = ["derive"]
+
 [workspace]
 members = [
     "uefi-macros",
@@ -45,3 +51,9 @@ panic = "abort"
 
 [profile.release]
 panic = "abort"
+
+
+
+[package.metadata.playground]
+features = ["serde"]
+

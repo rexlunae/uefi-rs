@@ -7,6 +7,9 @@ use bitflags::bitflags;
 use core::mem::MaybeUninit;
 use core::ptr;
 
+#[cfg(feature = "serde")]
+use serde::{Serialize, Deserialize};
+
 /// Contains pointers to all of the runtime services.
 ///
 /// This table, and the function pointers it contains are valid
@@ -103,6 +106,7 @@ impl super::Table for RuntimeServices {
 }
 
 /// The current time information
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[derive(Debug, Copy, Clone)]
 #[repr(C)]
 pub struct Time {
@@ -121,6 +125,7 @@ pub struct Time {
 
 bitflags! {
     /// Flags describing the capabilities of a memory range.
+    #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
     pub struct Daylight: u8 {
         /// Time is affected by daylight savings time
         const ADJUST_DAYLIGHT = 0x01;
@@ -217,6 +222,7 @@ impl Time {
 }
 
 /// Real time clock capabilities
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
 #[repr(C)]
 pub struct TimeCapabilities {
@@ -233,6 +239,7 @@ pub struct TimeCapabilities {
 }
 
 /// The type of system reset.
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
 #[repr(u32)]
 pub enum ResetType {
